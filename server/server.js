@@ -18,11 +18,16 @@ const server = app.listen(SERVER_PORT, () => {
 
 const io = socket(server);
 
-io.on("connection", client => {
-  client.on("subscribeToTimer", interval => {
-    console.log("client is subscribed with interval", interval, client.id);
-    setInterval(() => {
-      client.emit("timer", new Date())
-    }, interval);
-  });
+io.on("connection", socket => {
+    console.log('hello')
+    socket.on('create room', data => {
+      console.log(data.room)
+      socket.join(data.room)
+      io.to(data.room).emit('room created', data.room)
+    })
+
+    socket.on('joined game', data => {
+      console.log('got im', data.name)
+    })
+
 });
