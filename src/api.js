@@ -6,4 +6,8 @@ function subscribeToTimer(interval, cb) {
   socket.emit("subscribeToTimer", interval);
 }
 
-export { subscribeToTimer };
+function updateAnswers(data, cb) {
+    socket.on('answer', cb(null, data))
+    socket.emit('answer', data)
+}
+export { subscribeToTimer, updateAnswers };
