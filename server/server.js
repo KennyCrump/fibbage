@@ -27,6 +27,9 @@ io.on("connection", socket => {
   });
 
   socket.on("joined game", data => {
-    console.log("got im", data.name);
+    console.log(data.name, "has joined the game");
+    io.to(data.room).emit("player joined", data.name)
   });
+
+
 });

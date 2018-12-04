@@ -27,7 +27,7 @@ export default class Join extends Component {
 
     submit = ()=>{
         let {roomcode, name} = this.state
-        this.socket.emit('joined game', {roomcode, name})
+        this.socket.emit('joined game', {room: roomcode, name})
     }
 
     render(){

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {HashRouter} from 'react-router-dom'
-import route from './route.js'
+import routes from './routes.js'
 
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <HashRouter>
       <div className="App">
-        {route}
+        {routes}
 
       </div>
       </HashRouter>
