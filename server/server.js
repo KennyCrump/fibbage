@@ -19,15 +19,17 @@ const server = app.listen(SERVER_PORT, () => {
 const io = socket(server);
 
 io.on("connection", socket => {
-    console.log('hello')
-    socket.on('create room', data => {
-      console.log(data.room)
-      socket.join(data.room)
-      io.to(data.room).emit('room created', data.room)
-    })
+  console.log("hello");
+  socket.on("create room", data => {
+    console.log(data.room);
+    socket.join(data.room);
+    io.to(data.room).emit("room created", data.room);
+  });
 
-    socket.on('joined game', data => {
-      console.log('got im', data.name)
-    })
+  socket.on("joined game", data => {
+    console.log(data.name, "has joined the game");
+    io.to(data.room).emit("player joined", data.name)
+  });
+
 
 });

@@ -11,20 +11,21 @@ export default class Lobby extends Component {
             
         }
         this.socket = io.connect(':4762')
+        this.socket.on('player joined', data => this.playerJoined(data))
     }
 
     componentDidMount(){
         if(!this.state.room){
             this.createRoom()
         } 
-        this.socket.on('players joined', data => this.playersJoined(data))
+        // this.socket.on('player joined', data => this.playerJoined(data))
         // this.joinRoom()
     }
 
 
-    playersJoined = (data)=>{
-        let players = [...this.state.players]
-        players.push(data.name)
+    playerJoined = (data) =>{
+        console.log(data) //data = new player that joined
+        let players = [...this.state.players, data]
         this.setState({
             players
         })
@@ -45,15 +46,19 @@ export default class Lobby extends Component {
     }
     
     render(){
-        console.log(this.state.room)
-        let newplayers = this.state.players.map( ()=>{
-
+        console.log(this.state.room, this.state.players)
+        let newplayers = this.state.players.map( (player, index)=>{
+            return (
+                <div key={index}>
+                    <h2>{player}</h2>
+                </div>
+            )
         })
         return(
             <div>
                 <p>Logo</p>
                 <h2>Join using code:{this.state.room}</h2>
-                {this.state.players[0]}
+                {newplayers}
 
             </div>
         )
