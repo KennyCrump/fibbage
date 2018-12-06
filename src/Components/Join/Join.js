@@ -19,6 +19,7 @@ export default class Join extends Component {
             roomcode: val
         })
     }
+    
     handleName = (val)=>{
         this.setState({
             name: val
