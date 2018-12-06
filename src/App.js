@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {HashRouter} from 'react-router-dom'
 import routes from './routes.js'
+
 
 
 class App extends Component {
