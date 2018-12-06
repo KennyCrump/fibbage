@@ -9,7 +9,7 @@ export default class Lobby extends Component {
         super(props)
         this.state = {
             room: '',
-            players: ['Player 1', 'Player 2', 'Player 3', 'Player 4', 'Player 5', 'Player 6', 'Player 7', 'Player 8'],
+            players: ['Login to Play!', 'Login to Play!', 'Login to Play!', 'Login to Play!', 'Login to Play!', 'Login to Play!', 'Login to Play!', 'Login to Play!'],
 
         }
         this.socket = io.connect(':4762')
@@ -27,13 +27,21 @@ export default class Lobby extends Component {
 
     playerJoined = (data) => {
         console.log(data) //data = new player that joined
+        let {players} = this.state
+        let filteredPlayers = players.filter(element => element = 'Login to Play!')
+        console.log(filteredPlayers)
+        let playerindex = filteredPlayers.findIndex(element => element = 'Login to Play!')
+        // it saves as 0 only.
+        console.log(playerindex)
+        let newplayers = [...players]
+        newplayers.splice(playerindex, 1, data)
         // filter the array that says player and the first one that it matches with get the index, then splice it and then setState with the new information.
-        let players = this.state.players.slice()
-        let playerIndex = players.findIndex((player) => player.includes('Player'))
+        // let players = this.state.players.slice()
+        let playerIndex = players.findIndex((player) => player.includes('Login'))
         
         players[playerIndex] =  data
         this.setState({
-            players
+            players: newplayers
         })
 
     }
@@ -52,7 +60,6 @@ export default class Lobby extends Component {
     }
 
     render() {
-        console.log(this.state.room, this.state.players)
         let newplayers = this.state.players.map((player, index) => {
             return (
                 <div key={index}>
