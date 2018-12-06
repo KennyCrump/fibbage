@@ -28,7 +28,10 @@ export default class Lobby extends Component {
     playerJoined = (data) => {
         console.log(data) //data = new player that joined
         // filter the array that says player and the first one that it matches with get the index, then splice it and then setState with the new information.
-        let players = [...this.state.players, data]
+        let players = this.state.players.slice()
+        let playerIndex = players.findIndex((player) => player.includes('Player'))
+        
+        players[playerIndex] =  data
         this.setState({
             players
         })
