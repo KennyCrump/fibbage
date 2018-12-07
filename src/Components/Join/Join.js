@@ -7,7 +7,8 @@ export default class Join extends Component {
         super(props)
         this.state={
             roomcode: '',
-            name: ''
+            name: '',
+            modal: false
         }
         this.socket = io.connect(':4762')
     }
@@ -16,19 +17,24 @@ export default class Join extends Component {
     
     handleRoom = (val)=>{
         this.setState({
-            roomcode: val
+            roomcode: val.toUpperCase()
         })
     }
     
     handleName = (val)=>{
         this.setState({
-            name: val
+            name: val.toUpperCase()
         })
     }
 
-    submit = ()=>{
+    submit = () =>{
         let {roomcode, name} = this.state
-        this.socket.emit('joined game', {room: roomcode, name})
+        if(name){
+            this.socket.emit('joined game', {room: roomcode, name})
+            this.setState({modal: true})
+        }else{
+            alert('Please Enter a Name to Join')
+        }
     }
 
     render(){
@@ -36,10 +42,14 @@ export default class Join extends Component {
         console.log(this.state.name)
         return(
             <div>
-               <input placeholder='Type in Game Code' onChange={(e)=>this.handleRoom(e.target.value)} type="text"/>
+               <input placeholder='Type in Game Code' maxLength='4' onChange={(e)=>this.handleRoom(e.target.value)} type="text"/>
                <input placeholder='Type in Name' onChange={(e)=>this.handleName(e.target.value)} type="text"/>
                <button onClick={this.submit}>Play</button>
+               <div className='waitingToStart'>
+                    <div className="modal">
 
+                    </div>
+               </div>
             </div>
         )
     }
