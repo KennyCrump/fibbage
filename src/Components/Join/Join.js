@@ -24,6 +24,11 @@ export default class Join extends Component {
             room: res.data.room,
             name: res.data.name
           });
+          this.setState({
+              room: res.data.room,
+              name: res.data.name,
+              modal: true
+          })
         }
       })
   }
